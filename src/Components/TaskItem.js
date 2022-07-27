@@ -1,26 +1,33 @@
 import React, { useState } from 'react';
 
 
-function TaskItem() {
+function TaskItem(props) {
   const [isEditing, setIsEditing] = useState(false);
   const [task, setTask] = useState({});
 
+
+  // console.log("TaskItem",props)
 
   const setEditingState = (isEditing) => {
     setIsEditing({ isEditing: isEditing })
   }
 
   const toggleTask = () => {
-    toggleTask(task.id)
+    props.toggleTask(task.id);
+    console.log("my task is", task)
+    console.log("task.id is ", task.id)
   }
 
   const deleteTask = () => {
-    deleteTask(task.id)
+    props.deleteTask(task.id);
   }
 
 
   const handleChange = (e) => {
-    setTask({ task: e.target.value })
+    // setTask({ task: e.target.taskItem.value });
+    console.log("target", e.target.value)
+    console.log("handle fun is running", e)
+    // console.log(e.target.value, e.currentTarget.value)
   }
 
 
@@ -37,7 +44,8 @@ function TaskItem() {
         <>
           <td>
             <form onSubmit={handleSubmit}>
-              <input type="text" value={task}
+              <input type="text"
+                value={props.taskItem.task}
                 onChange={handleChange}
                 autoFocus />
             </form>
@@ -50,8 +58,9 @@ function TaskItem() {
       ) : (
         <>
           <td className='task' onClick={toggleTask}>
+            {console.log("task item comp is running isEditing is false", isEditing, props, task.task)}
             <input type="checkbox" checked={task.isCompleted} />
-            <span className={task.isCompleted ? 'Completed' : 'Not-Completed'} >{task.task}</span>
+            <span className={task.isCompleted ? 'Completed' : 'Not-Completed'} >{props.taskItem.task}</span>
           </td>
           <td>
             <button onClick={() => setEditingState(true)}>Edit</button>

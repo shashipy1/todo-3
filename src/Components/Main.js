@@ -3,25 +3,30 @@ import TaskList from './TaskList';
 import CreateTask from './CreateTask';
 
 
+const items = [];
 function Main() {
   const [tasks, setTasks] = useState([]);  
 
+
   const Createtask = (task) => {
+    // console.log("task value", task)
     if (task.trim() === '') {
       alert("You must write something!");
       return;
     }
-    tasks.push({ task, isComplete: true });
-    setTasks({ tasks: tasks });
+    items.push({ task, isComplete: true });
+    setTasks(items);
     console.log("task", tasks)
-    localStorage.setItem('lists', JSON.stringify(tasks))
+    localStorage.setItem('lists', JSON.stringify(items))
   }
 
   const toggleTask = (taskId) => {
     const taskItem = tasks[taskId];
-    taskItem.isComplete = !taskItem.isComplete;
-    setTasks({ tasks: tasks })
-    console.log("toggleTask", tasks)
+    console.log("taskitem is ", taskItem)
+    console.log("taskid is", taskId)
+    // taskItem.isComplete = !taskItem.isComplete;
+    setTasks({ task: tasks });
+    // console.log("toggleTask", tasks)
   }
 
 
@@ -41,14 +46,14 @@ function Main() {
   }
 
   const showActiveTask = () => {
-    const activetodo = tasks.filter(todo => todo.isComplete === true)
-    setTasks({ tasks: activetodo })
-    console.log("show active task", activetodo);
+    const activetodo = tasks.filter((todo) => todo.isComplete === true)
+    setTasks(activetodo)
+    console.log("show active task", activetodo);  
   }
 
   const showCompleteTask = () => {
-    const completedtodo = tasks.filter(todo => todo.isComplete === false)
-    this.setState({ tasks: completedtodo })
+    const completedtodo = tasks.filter((todo) => todo.isComplete === false)
+    setTasks(completedtodo)
     console.log("completed", completedtodo)
   }
 

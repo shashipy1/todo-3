@@ -5,6 +5,9 @@ import TaskItem from './TaskItem';
 
 function TaskList(props) {
 
+  console.log("show tasks", props.tasks)
+  console.log("task list componet running props", props)
+
   return (
     <>
       <Button
@@ -20,7 +23,7 @@ function TaskList(props) {
           </tr>
         </thead>
         <tbody>
-          {props.tasks.map((task, index) => (
+          { Array.isArray(props.tasks) && props.tasks.map((task, index) => (
             <TaskItem
               key={index}
               taskItem={task}
@@ -36,4 +39,4 @@ function TaskList(props) {
   )
 }
 
-export default TaskList
+export default TaskList;
